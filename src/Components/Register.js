@@ -1,83 +1,51 @@
-import React,{Component} from 'react';
-import {Table} from 'react-bootstrap';
-import {Button, ButtonToolbar} from 'react-bootstrap';
-import {RegModal} from './RegModal';
+import React from 'react';
+import { connect } from 'react-redux';
 
 //import axios from 'axios';
-export class Register extends Component{
-
+class Register extends React.Component{
     constructor(props){
         super(props);
-        this.state={rdata:[],addModalshow:false}
+        this.state={
+            name:'',
+            surnanme:'',
+        };
+        this.handleChange=this.handleChange.bind(this);
+        this.handleSubmit=this.handleSubmit.bind(this);
     }
-
-    componentDidMount(){
-        this.refreshList();
+    handleSubmit(event){
+        console.log(`submit event  ${this.state.name}  ${this.state.surnanme}`)
+        event.preventDefault();
     }
-refreshList(){
-    // this.setState({
-    //     rdata:[
-    //         {"Name":"Ankit","Surname":"wankhede"},
-    //         {"Name":"Abhishek","Surname":"wankhede"},
-    //         {"Name":"Apeksha","Surname":"wankhede"}
-    //     ]
-    // })
-  
-//fetch
-
-    const GET_USERS='http://localhost:8080/Api/webapi/myresource/search/users';
-   //  const url='https://reqres.in/api/users?page=2';
-   //  const url='http://localhost:8080/Api/webapi/myresource/testing';
- //  const url='https://jsonplaceholder.typicode.com/posts';  
-  //    const url='http://dummy.restapiexample.com/api/v1/employees';
-    fetch(GET_USERS) 
-   .then((response)=>response.json())
-    .then((data)=>{
-        this.setState({rdata:data});
-       // console.log(data);
-    });
-
-//axios
-    // axios.get(url)
-    // .then((response)=>{
-    //     console.log(response);
-    // });
-}
-
-componentDidUpdate(){
-    this.refreshList();
-}
-
+    handleChange(event){
+        // console.log(`change`)
+        console.log(`value changed  ${ this.state.name } `);
+        this.setState({name:event.target.value})
+    }
+    
     render(){
-        const {rdata}=this.state;
-        let addModalclose=()=>this.setState({addModalshow:false});
         return(
-        <div>
-            <Table className="mt-4" striped bordered hover size="sm">
-                <thead>
-                    <tr>
-                        <th>first name</th>
-                        <th>last name</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {rdata.map(rd =>
-                        <tr>
-                            <td>{rd.fname}</td>
-                            <td>{rd.lname}</td>
-                        </tr>
-                    )}
-                </tbody>
-            </Table>
-
-            <ButtonToolbar>
-            <Button variant="primary" onClick={()=>this.setState({addModalshow:true})} >
-                    Register
-            </Button>
-            <RegModal show={this.state.addModalshow} onHide={addModalclose}/>
-            </ButtonToolbar>
-        </div>
-        )
-  
+      <form onSubmit={this.handleSubmit}>
+          <label >
+              Name :
+              <input type='text' value={this.state.name} onChange={this.handleChange}/>
+          </label>
+          <label >
+              Surname :
+              <input type='text' value={this.state.surnanme} onChange={e=>this.setState({surnanme:e.target.value})}/>
+          </label>
+          <input type='submit' value='submit'  />
+      </form>
+      );
     }
 }
+
+const mapStateToProp=state=>{
+    return {}
+}
+const mapDispatchToProp=dispatch=>{
+    return {
+        showAll:()=>dispatch()
+    }
+}
+
+export default connect(mapStateToProp,mapDispatchToProp)(Register);
