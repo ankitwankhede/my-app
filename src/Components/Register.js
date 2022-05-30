@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { add, show } from '../redux/actions/myActions';
 
 //import axios from 'axios';
 class Register extends React.Component{
@@ -15,10 +16,11 @@ class Register extends React.Component{
     handleSubmit(event){
         console.log(`submit event  ${this.state.name}  ${this.state.surnanme}`)
         event.preventDefault();
+        this.props.addNew({name:this.state.name,surname:this.state.surnanme})
+        this.props.showAll();
     }
     handleChange(event){
         // console.log(`change`)
-        console.log(`value changed  ${ this.state.name } `);
         this.setState({name:event.target.value})
     }
     
@@ -44,7 +46,8 @@ const mapStateToProp=state=>{
 }
 const mapDispatchToProp=dispatch=>{
     return {
-        showAll:()=>dispatch()
+        addNew:val=>dispatch(add(val)),
+        showAll:()=>dispatch(show())
     }
 }
 

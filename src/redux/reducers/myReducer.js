@@ -2,12 +2,18 @@ const initialState={
     Names:[]
 }
 
-export default myreducer=(state=initialState,action)=>{
+let myreducer=(state=initialState,action)=>{
     switch(action.type){
         case 'ADD':
-            console.log(`ADD reducer`)
+            let existingName=state.Names.slice();
+            existingName.push(action.payload)
+            return {...state,Names:existingName}
+        case 'SHOW':
+            console.log(`SHOW Names ---------------- \n ${JSON.stringify(state.Names,null,2)}`);
             break;
         default:
             return state;
     }
 }
+
+export default myreducer;
