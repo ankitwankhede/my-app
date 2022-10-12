@@ -1,11 +1,11 @@
-export const add=val=>{
+export const add = val => {
    return {
-    type:'ADD',
-    payload:val,
+      type: 'ADD',
+      payload: val,
    }
 }
-export const show=()=>{
+export const show = () => {
    return {
-      type:'SHOW',
+      type: 'SHOW',
    }
 }

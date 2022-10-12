@@ -1,27 +1,27 @@
-import React,{Component} from 'react';
+import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { show } from '../redux/actions/myActions';
 
-class Search extends Component{
-    constructor(props){
+class Search extends Component {
+    constructor(props) {
         super(props);
     }
-    componentDidMount=()=>{
+    componentDidMount = () => {
         this.props.showAll()
     }
-    render(){
-        return(
-                <h4>SEARCH</h4>
+    render() {
+        return (
+            <h4>SEARCH</h4>
         )
     }
 }
-const mapStateToProp=state=>{
+const mapStateToProp = state => {
     return {}
 }
 
-const mapDispatchToProp=dispatch=>{
+const mapDispatchToProp = dispatch => {
     return {
-        showAll:()=>dispatch(show())
+        showAll: () => dispatch(show())
     }
 }
-export default connect(mapStateToProp,mapDispatchToProp)(Search);
+export default connect(mapStateToProp, mapDispatchToProp)(Search);

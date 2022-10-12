@@ -1,15 +1,16 @@
-const initialState={
-    Names:[]
+const inititalState = {
+    Names: []
 }
 
-let myreducer=(state=initialState,action)=>{
-    switch(action.type){
+let myreducer = (state = inititalState, action) => {
+    switch (action.type) {
         case 'ADD':
-            let existingName=state.Names.slice();
-            existingName.push(action.payload)
-            return {...state,Names:existingName}
+            let newNames = [...state.Names, action.payload]
+            return {
+                ...state, Names: newNames
+            }
         case 'SHOW':
-            console.log(`SHOW Names ---------------- \n ${JSON.stringify(state.Names,null,2)}`);
+            console.log(`SHOW Names ---------------- \n ${JSON.stringify(state.Names, null, 2)}`);
             break;
         default:
             return state;
